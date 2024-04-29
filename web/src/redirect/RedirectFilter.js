@@ -7,7 +7,7 @@ export const RedirectFilter = ({children}) => {
 
   useEffect(() => {
     if (location.pathname === "/account" && sso && sso !== "") {
-      window.location.href = sso;
+      window.location.href = sso + "/dashboard?path=settings";
     }
   }, [location, sso]);
 

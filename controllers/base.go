@@ -73,7 +73,7 @@ func (c *ApiController) IsAdminOrSelf(user2 *object.User) bool {
 
 func (c *ApiController) isGlobalAdmin() (bool, *object.User) {
 	username := c.GetSessionUsername()
-	if object.IsAppUser(username) {
+	if strings.HasPrefix(username, "app/") {
 		// e.g., "app/app-casnode"
 		return true, nil
 	}
@@ -122,15 +122,6 @@ func (c *ApiController) GetSessionUsername() string {
 	return user.(string)
 }
 
-func (c *ApiController) GetSessionToken() string {
-	accessToken := c.GetSession("accessToken")
-	if accessToken == nil {
-		return ""
-	}
-
-	return accessToken.(string)
-}
-
 func (c *ApiController) GetSessionApplication() *object.Application {
 	clientId := c.GetSession("aud")
 	if clientId == nil {
@@ -148,10 +139,6 @@ func (c *ApiController) GetSessionApplication() *object.Application {
 func (c *ApiController) ClearUserSession() {
 	c.SetSessionUsername("")
 	c.SetSessionData(nil)
-}
-
-func (c *ApiController) ClearTokenSession() {
-	c.SetSessionToken("")
 }
 
 func (c *ApiController) GetSessionOidc() (string, string) {
@@ -178,10 +165,6 @@ func (c *ApiController) GetSessionOidc() (string, string) {
 // SetSessionUsername ...
 func (c *ApiController) SetSessionUsername(user string) {
 	c.SetSession("username", user)
-}
-
-func (c *ApiController) SetSessionToken(accessToken string) {
-	c.SetSession("accessToken", accessToken)
 }
 
 // GetSessionData ...

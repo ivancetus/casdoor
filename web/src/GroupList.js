@@ -196,17 +196,6 @@ class GroupListPage extends BaseListPage {
         },
       },
       {
-        title: i18next.t("general:Users"),
-        dataIndex: "users",
-        key: "users",
-        // width: "200px",
-        sorter: true,
-        ...this.getColumnSearchProps("users"),
-        render: (text, record, index) => {
-          return Setting.getTags(text, "users");
-        },
-      },
-      {
         title: i18next.t("general:Action"),
         dataIndex: "",
         key: "op",

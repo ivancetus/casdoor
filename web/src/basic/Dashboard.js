@@ -32,11 +32,6 @@ const Dashboard = (props) => {
   }, []);
 
   React.useEffect(() => {
-    window.addEventListener("storageOrganizationChanged", handleOrganizationChange);
-    return () => window.removeEventListener("storageOrganizationChanged", handleOrganizationChange);
-  }, [props.owner]);
-
-  React.useEffect(() => {
     if (!Setting.isLocalAdminUser(props.account)) {
       const from = sessionStorage.getItem("from");
       if (from) {
@@ -49,21 +44,11 @@ const Dashboard = (props) => {
     }
   }, [props.account]);
 
-  const getOrganizationName = () => {
-    let organization = localStorage.getItem("organization") === "All" ? "" : localStorage.getItem("organization");
-    if (!Setting.isAdminUser(props.account) && Setting.isLocalAdminUser(props.account)) {
-      organization = props.account.owner;
-    }
-    return organization;
-  };
-
   React.useEffect(() => {
     if (!Setting.isLocalAdminUser(props.account)) {
       return;
     }
-
-    const organization = getOrganizationName();
-    DashboardBackend.getDashboard(organization).then((res) => {
+    DashboardBackend.getDashboard(props.account.owner).then((res) => {
       if (res.status === "ok") {
         setDashboardData(res.data);
       } else {
@@ -74,21 +59,6 @@ const Dashboard = (props) => {
 
   const handleTourChange = () => {
     setIsTourVisible(TourConfig.getTourVisible());
-  };
-
-  const handleOrganizationChange = () => {
-    if (!Setting.isLocalAdminUser(props.account)) {
-      return;
-    }
-
-    const organization = getOrganizationName();
-    DashboardBackend.getDashboard(organization).then((res) => {
-      if (res.status === "ok") {
-        setDashboardData(res.data);
-      } else {
-        Setting.showMessage("error", res.msg);
-      }
-    });
   };
 
   const setIsTourToLocal = () => {

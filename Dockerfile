@@ -34,7 +34,6 @@ ARG USER=casdoor
 
 RUN sed -i 's/https/http/' /etc/apk/repositories
 RUN apk add --update sudo
-RUN apk add tzdata
 RUN apk add curl
 RUN apk add ca-certificates && update-ca-certificates
 

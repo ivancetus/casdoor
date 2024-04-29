@@ -93,7 +93,6 @@ module.exports = {
           "buffer": false,
           "crypto": false,
           "os": false,
-          "fs": false,
         },
       }
     },

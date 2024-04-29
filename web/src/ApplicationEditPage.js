@@ -456,10 +456,6 @@ class ApplicationEditPage extends React.Component {
           </Col>
           <Col span={1} >
             <Switch checked={this.state.application.enableSigninSession} onChange={checked => {
-              if (!checked) {
-                this.updateApplicationField("enableAutoSignin", false);
-              }
-
               this.updateApplicationField("enableSigninSession", checked);
             }} />
           </Col>
@@ -470,11 +466,6 @@ class ApplicationEditPage extends React.Component {
           </Col>
           <Col span={1} >
             <Switch checked={this.state.application.enableAutoSignin} onChange={checked => {
-              if (!this.state.application.enableSigninSession && checked) {
-                Setting.showMessage("error", i18next.t("application:Please enable \"Signin session\" first before enabling \"Auto signin\""));
-                return;
-              }
-
               this.updateApplicationField("enableAutoSignin", checked);
             }} />
           </Col>
@@ -1090,7 +1081,7 @@ class ApplicationEditPage extends React.Component {
   submitApplicationEdit(exitAfterSave) {
     const application = Setting.deepCopy(this.state.application);
     application.providers = application.providers?.filter(provider => this.state.providers.map(provider => provider.name).includes(provider.name));
-    application.signinMethods = application.signinMethods?.filter(signinMethod => ["Password", "Verification code", "WebAuthn", "LDAP", "Face ID"].includes(signinMethod.name));
+    application.signinMethods = application.signinMethods?.filter(signinMethod => ["Password", "Verification code", "WebAuthn", "LDAP"].includes(signinMethod.name));
 
     ApplicationBackend.updateApplication("admin", this.state.applicationName, application)
       .then((res) => {

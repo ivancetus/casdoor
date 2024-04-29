@@ -98,7 +98,6 @@ p, *, *, GET, /api/get-all-objects, *, *
 p, *, *, GET, /api/get-all-actions, *, *
 p, *, *, GET, /api/get-all-roles, *, *
 p, *, *, GET, /api/get-invitation-info, *, *
-p, *, *, GET, /api/faceid-signin-begin, *, *
 `
 
 		sa := stringadapter.NewAdapter(ruleText)

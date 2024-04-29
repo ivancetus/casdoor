@@ -110,11 +110,6 @@
           "name": "WebAuthn",
           "displayName": "WebAuthn",
           "rule": "None"
-        },
-        {
-          "name": "Face ID",
-          "displayName": "Face ID",
-          "rule": "None"
         }
       ],
       "signupItems": [
@@ -184,10 +179,8 @@
         "refresh_token"
       ],
       "redirectUris": [
-        "http://localhost:9000/callback"
+        ""
       ],
-      "tokenFormat": "JWT",
-      "tokenFields": [],
       "expireInHours": 168,
       "failedSigninLimit": 5,
       "failedSigninFrozenTime": 15

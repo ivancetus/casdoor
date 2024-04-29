@@ -505,6 +505,11 @@ class App extends Component {
   }
 
   render() {
+    const sso = process.env.REACT_APP_SSO;
+    if (sso && sso !== "" && location.pathname === "/account") {
+      window.location.href = sso + "/dashboard?path=settings";
+      return null;
+    }
     return (
       <React.Fragment>
         {(this.state.account === undefined || this.state.account === null) ?

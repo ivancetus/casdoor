@@ -164,7 +164,6 @@ func (c *ApiController) GetOAuthToken() {
 	code := c.Input().Get("code")
 	verifier := c.Input().Get("code_verifier")
 	scope := c.Input().Get("scope")
-	nonce := c.Input().Get("nonce")
 	username := c.Input().Get("username")
 	password := c.Input().Get("password")
 	tag := c.Input().Get("tag")
@@ -198,9 +197,6 @@ func (c *ApiController) GetOAuthToken() {
 			if scope == "" {
 				scope = tokenRequest.Scope
 			}
-			if nonce == "" {
-				nonce = tokenRequest.Nonce
-			}
 			if username == "" {
 				username = tokenRequest.Username
 			}
@@ -220,7 +216,7 @@ func (c *ApiController) GetOAuthToken() {
 	}
 
 	host := c.Ctx.Request.Host
-	token, err := object.GetOAuthToken(grantType, clientId, clientSecret, code, verifier, scope, nonce, username, password, host, refreshToken, tag, avatar, c.GetAcceptLanguage())
+	token, err := object.GetOAuthToken(grantType, clientId, clientSecret, code, verifier, scope, username, password, host, refreshToken, tag, avatar, c.GetAcceptLanguage())
 	if err != nil {
 		c.ResponseError(err.Error())
 		return
@@ -321,8 +317,7 @@ func (c *ApiController) IntrospectToken() {
 		return
 	}
 
-	tokenTypeHint := c.Input().Get("token_type_hint")
-	token, err := object.GetTokenByTokenValue(tokenValue, tokenTypeHint)
+	token, err := object.GetTokenByTokenValue(tokenValue)
 	if err != nil {
 		c.ResponseTokenError(err.Error())
 		return

@@ -71,9 +71,7 @@ class EntryPage extends React.Component {
       this.props.updataThemeData(themeData);
       this.props.updateApplication(application);
 
-      if (application) {
-        localStorage.setItem("applicationName", application.name);
-      }
+      localStorage.setItem("applicationName", application.name);
     };
 
     const onUpdatePricing = (pricing) => {

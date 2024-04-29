@@ -134,7 +134,7 @@ IMG = ${ECR_NAME}-${MODE}
 
 deploy:
 	@echo "Deploying: ${IMG}-${TAG}"
-	docker build . --platform linux/amd64 -t ${IMG}
+	docker build . --platform linux/amd64 --build-arg MODE=${MODE} -t ${IMG}
 	@aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_URL}
 	@docker tag ${IMG}:latest ${ECR_URL}/${IMG}:${TAG}
 	@docker push ${ECR_URL}/${IMG}:${TAG}

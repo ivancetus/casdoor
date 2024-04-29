@@ -23,13 +23,16 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import {BrowserRouter} from "react-router-dom";
 import "./backend/FetchFilter";
+import {RedirectFilter} from "./redirect/RedirectFilter";
 
 const container = document.getElementById("root");
 
 const app = createRoot(container);
 
 app.render(<BrowserRouter>
-  <App />
+  <RedirectFilter>
+    <App />
+  </RedirectFilter>
 </BrowserRouter>);
 
 // If you want your app to work offline and load faster, you can change

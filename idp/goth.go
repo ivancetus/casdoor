@@ -508,6 +508,9 @@ func getUser(gothUser goth.User, provider string) *UserInfo {
 			user.DisplayName = user.Username
 		}
 	}
+	if provider == "google" {
+		user.Username = user.Id
+	}
 	if provider == "steam" {
 		user.Username = user.Id
 		user.Email = ""

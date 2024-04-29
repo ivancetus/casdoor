@@ -6,7 +6,7 @@ ARG MODE
 RUN if [ "$MODE" = "dev" ]; then \
       mv .env.development .env.local; \
     elif [ "$MODE" = "prod" ]; then \
-      mv .env.production .env.local \
+      mv .env.production .env.local; \
     fi
 
 RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn run build

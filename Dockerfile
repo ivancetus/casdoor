@@ -7,7 +7,7 @@ RUN if [ "$MODE" = "dev" ]; then \
       mv .env.development .env.local; \
     elif [ "$MODE" = "prod" ]; then \
       mv .env.production .env.local \
-    fi \
+    fi
 
 RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn run build
 
